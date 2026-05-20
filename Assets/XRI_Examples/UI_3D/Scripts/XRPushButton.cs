@@ -45,6 +45,10 @@ namespace UnityEngine.XR.Content.Interaction
         bool m_ToggleButton = false;
 
         [SerializeField]
+        [Tooltip("Audio que se reproduce al presionar el botón")]
+        AudioSource m_PressAudio = null;
+
+        [SerializeField]
         [Tooltip("Events to trigger when the button is pressed")]
         UnityEvent m_OnPress;
 
@@ -221,6 +225,7 @@ namespace UnityEngine.XR.Content.Interaction
             var currentDistance = Mathf.Max(0f, -minimumHeight - m_PressBuffer);
             m_Value = currentDistance / m_PressDistance;
 
+
             if (m_ToggleButton)
             {
                 if (pressed)
@@ -230,7 +235,10 @@ namespace UnityEngine.XR.Content.Interaction
                         m_Toggled = !m_Toggled;
 
                         if (m_Toggled)
+                        {
                             m_OnPress.Invoke();
+                            if (m_PressAudio != null) m_PressAudio.Play(); // ← Agrega esto
+                        }
                         else
                             m_OnRelease.Invoke();
                     }
@@ -241,7 +249,10 @@ namespace UnityEngine.XR.Content.Interaction
                 if (pressed)
                 {
                     if (!m_Pressed)
+                    {
                         m_OnPress.Invoke();
+                        if (m_PressAudio != null) m_PressAudio.Play(); // ← Agrega esto
+                    }
                 }
                 else
                 {

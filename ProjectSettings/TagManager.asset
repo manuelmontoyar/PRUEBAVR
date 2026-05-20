@@ -8,11 +8,14 @@ TagManager:
   - Flame
   - Water
   - Destroyer
+  - Cube
+  - Ring
+  - Triangulo
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
